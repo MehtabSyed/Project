@@ -1,0 +1,9 @@
+   std::ofstream outfile(tempfile.native(), std::ios::trunc);
+    if(!outfile.is_open())
+        throw std::runtime_error("cannot open output file");
+    // open existing file
+    std::ifstream infile(file_path.native());
+    if(!infile.is_open())
+    {
+        throw std::runtime_error("cannot open input file");
+    }

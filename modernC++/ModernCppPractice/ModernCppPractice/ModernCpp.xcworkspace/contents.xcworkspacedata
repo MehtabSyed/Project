@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/VariadicTemplate/VariadicTemplates/VariadicTemplates.xcodeproj">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "Data Structure">
+      <FileRef
+         location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/Data Structure/DoubleBuffer/DoubleBuffer.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/Data Structure/PriorityQ/PriorityQ.xcodeproj">
+      </FileRef>
+      <FileRef
+         location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/Data Structure/CircularQ/CircularQ.xcodeproj">
+      </FileRef>
+   </Group>
+   <FileRef
+      location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/Time/Time/Time.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:../../../../../../Mehtab_Syed/Documents/project/modernC++/ModernCppPractice/ModernCppPractice/DesignPattern/DesginPattern/DesginPattern.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Thread/ThreadConc/ThreadConc.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:FileStream/FilesAndStreams/FilesAndStreams.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:BinToString/BinToString.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:HandleWrapper/HandleWrapper.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:AnyAllNoneContainer/AnyAllNoneContainer.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:MinNumber/MinNumber/MinNumber.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "group:Maths/Maths.xcodeproj">
+   </FileRef>
+</Workspace>

@@ -12,16 +12,21 @@
 using namespace std;
 void PrintFuzz()
   {
-      cout << "Fuzz" ;
+      cout << "Fuzz " ;
   }
   void PrintBuzz()
   {
-      cout << "Buzz" ;
+      cout << "Buzz " ;
   }
   void PrintFuzzBuzz()
   {
-      cout << "FuzzBuzz" ;
+      cout << "FuzzBuzz " ;
   }
+
+void printNumber( int n)
+{
+    cout << n << " ";
+}
 class FizzBuzz
 {
     int n;
@@ -36,87 +41,83 @@ public:
         curr =1;
     }
 
-  
-    bool IsDivisible(int num ,int div)
-    {
-        if(num % 15 == 0 && div !=15)
-        {
-            return false;
-        }
-        
-        if(num % div ==0)
-            return true;
-        else
-            return false;
-    }
-    
-    void DoWork(int div,function<void()> fn)
+     void fizz(function<void()> printFizz)
     {
         while(1)
         {
-            unique_lock<mutex> lk(m);
-            while(curr <=n && !IsDivisible(curr,div))
+             unique_lock<mutex> lk(m);
+         while(curr <=n &&
+               (curr % 3 !=0 || (curr %15 ==0 )))
                 cv.wait(lk);
-            if(curr >n)
-            {
-                cv.notify_all();
+            if(curr > n) {
+                 cv.notify_all();
                 return;
-            }
-            fn();
+             }
+            printFizz();
             curr++;
+        
+        
+        cv.notify_all();
+        }
+    }
+
+    // printBuzz() outputs "buzz".
+    void buzz(function<void()> printBuzz) {
+        while(1)
+        {
+             unique_lock<mutex> lk(m);
+            while(curr <=n && ((curr % 5 !=0) || curr %15==0))
+                cv.wait(lk);
+            if(curr > n) {
+                 cv.notify_all();
+                return;
+             }
+        
+            printBuzz();
+            curr++;
+             
+            cv.notify_all();
+        }
+    }
+
+      void fizzbuzz(function<void()> printFizzBuzz) {
+        while(1)
+        {
+            unique_lock<mutex> lk(m);
+            while(curr <=n && (curr % 15 !=0))
+                cv.wait(lk);
+              if(curr > n) {
+                 cv.notify_all();
+                return;
+              }
+            printFizzBuzz();
+            curr++;
+            
+        
+        
             cv.notify_all();
         }
         
     }
-    
-    void DoWork(int div,function<void(int)> fn)
-       {
-           while(1)
-           {
-               unique_lock<mutex> lk(m);
-               while(curr <=n && !IsDivisible(curr,div))
-                   cv.wait(lk);
-               if(curr >n)
-               {
-                   cv.notify_all();
-                   return;
-               }
-               fn(curr);
-               curr++;
-               cv.notify_all();
-           }
-           
-       }
-    
-    void fizz(function<void()> printFizz)
-    {
-        
-        DoWork(3, printFizz);
-        
-    }
-    
-    void buzz(function<void()> printBuzz)
-    {
-        DoWork(5, printBuzz);
-        
-    }
-    
-    void fizzbuzz(function<void()> printFizzBuzz)
-    {
-        DoWork(15, printFizzBuzz);
-    }
 
-    void nmuber(function<void(int)> printNumber)
-    {
-        while(curr <= n)
+    // printNumber(x) outputs "x", where x is an integer.
+    void number(function<void(int)> printNumber) {
+        while(1)
         {
-            if(!IsDivisible(curr,3) && !IsDivisible(curr, 5))
-            {
-                DoWork(curr,printNumber);
-            }else{
-                DoWork(curr-1, printNumber);
-            }
-        }
+             unique_lock<mutex> lk(m);
+            while(curr <=n && (curr % 3 ==0 || curr % 5 ==0))
+                cv.wait(lk);
+             if(curr > n) {
+                 cv.notify_all();
+                return;
+             }
+            printNumber(curr);
+            curr++;
+             
+            
+            cv.notify_all();
+         }
+        
     }
     
     
@@ -127,14 +128,16 @@ int main(int argc, const char * argv[]) {
     // insert code here...
     std::cout << "Hello, World!\n";
     int i = 15;
-    FizzBuzz fizzbuzz(i);
+    FizzBuzz* fizzbuzz =new FizzBuzz(i);
     thread fizz(&FizzBuzz::fizz,fizzbuzz,PrintFuzz);
-      thread buzz(&FizzBuzz::buzz,fizzbuzz,PrintFuzz);
+      thread buzz(&FizzBuzz::buzz,fizzbuzz,PrintBuzz);
     thread fizzBuzz(&FizzBuzz::fizzbuzz,fizzbuzz,PrintFuzzBuzz);
+    thread number(&FizzBuzz::number,fizzbuzz,printNumber);
     
     fizz.join();
     buzz.join();
     fizzBuzz.join();
+    number.join();
     
     return 0;
 }
